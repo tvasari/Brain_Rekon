@@ -79,7 +79,7 @@ class App extends Component {
   onButtonSubmit = () => {
 
     this.setState({imageUrl: this.state.input})
-    fetch('https://powerful-tor-47997.herokuapp.com/imageurl', {
+    fetch('https://brain-rekon-api.herokuapp.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -89,7 +89,7 @@ class App extends Component {
     .then(response => response.json()) 
     .then(response => {
       if (response) {
-        fetch('https://powerful-tor-47997.herokuapp.com/image', {
+        fetch('https://brain-rekon-api.herokuapp.com/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -132,6 +132,7 @@ class App extends Component {
         { route === 'home'  
           ? <div>
               <Logo />
+              <h1>Brain Rekon</h1>
               <Rank name={this.state.user.name} entries={this.state.user.entries}/>
               <ImageLinkForm 
                 onInputChange={this.onInputChange}

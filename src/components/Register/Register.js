@@ -25,7 +25,7 @@ class Register extends Component {
 	}
 
 	onSubmitSignIn = () => {
-		fetch('https://powerful-tor-47997.herokuapp.com/register', {
+		fetch('https://brain-rekon-api.herokuapp.com/register', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
