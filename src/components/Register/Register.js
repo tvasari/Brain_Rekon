@@ -24,7 +24,7 @@ class Register extends Component {
 		this.setState({password: event.target.value})
 	}
 
-	onSubmitSignIn = () => {
+	onSubmitSignUp = () => {
 		fetch('https://brain-rekon-api.herokuapp.com/register', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
@@ -38,7 +38,7 @@ class Register extends Component {
 		.then(user => {
 			if (user.id) {
 				this.props.loadUser(user);
-			  	this.props.onRouteChange('home');
+			  	this.props.onRouteChange('signin');
 		  	}
 		})		
 	}
@@ -87,7 +87,7 @@ class Register extends Component {
 				      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
 				      	type="submit" 
 				      	value="Sign up"
-				      	onClick={this.onSubmitSignIn}
+				      	onClick={this.onSubmitSignUp}
 			      	  />
 				    </div>
 				  </div>

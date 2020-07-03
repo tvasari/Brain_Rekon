@@ -41,7 +41,21 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = initialState
+    this.state = initialState;
+    this.logout = this.logout.bind(this);
+    this.resetTimeout = this.resetTimeout.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.route !== prevState.route && this.state.route === 'home') {
+      this.events = ['load', 'mousemove', 'mousedown',
+      'click', 'scroll', 'keypress'];
+      this.events.forEach((event) => {
+        window.addEventListener(event, this.resetTimeout);
+      });
+      
+      this.setTimeout();
+    }
   }
 
   displayFaceBox = (box) => {
@@ -112,10 +126,41 @@ class App extends Component {
     this.setState({route: route});
 
     if (route === 'signout') {
-      this.setState(initialState);
+      this.setState(initialState); //difference {route: 'signin', isSignedIn: false}
     } else if (route === 'home') {
       this.setState({isSignedIn: true});
     }
+  }
+
+  clearTimeout() {
+    if(this.warnTimeout)
+      clearTimeout(this.warnTimeout);
+
+    if(this.logoutTimeout)
+      clearTimeout(this.logoutTimeout);
+  }
+
+  setTimeout() {
+    this.warnTimeout = setTimeout(() => alert('logout in 1 minuto.'), 8 * 30 * 1000)
+    this.logoutTimeout = setTimeout(this.logout, 10 * 30 * 1000);
+  }
+
+  resetTimeout() {
+    this.clearTimeout();
+    this.setTimeout();
+  }
+
+  logout() {
+    this.setState({route: 'signin', isSignedIn: false});
+    this.destroy();
+  }
+
+  destroy() {
+    this.clearTimeout();
+
+    this.events.forEach((event) => {
+      window.removeEventListener(event, this.resetTimeout);
+    });
   }
 
 
@@ -125,10 +170,8 @@ class App extends Component {
     
     return (
       <div className="App">
-
           <Particles params={particlesOptions} className='particles' />
           <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}  />
-
         { route === 'home'  
           ? <div>
               <Logo />
