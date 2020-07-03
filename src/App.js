@@ -141,7 +141,7 @@ class App extends Component {
   }
 
   setTimeout() {
-    this.warnTimeout = setTimeout(() => alert('logout in 1 minuto.'), 8 * 30 * 1000)
+    this.warnTimeout = setTimeout(() => alert('logging out in 1 minute'), 8 * 30 * 1000)
     this.logoutTimeout = setTimeout(this.logout, 10 * 30 * 1000);
   }
 
